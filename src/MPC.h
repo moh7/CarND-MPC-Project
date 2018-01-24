@@ -5,7 +5,7 @@
 #include "Eigen-3.3/Eigen/Core"
 
 #define NUMBER_OF_STEPS 20
-#define DT = 0.05
+#define DT 0.05
 
 // This value assumes the model presented in the classroom is used.
 //

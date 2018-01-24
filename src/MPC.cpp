@@ -6,7 +6,7 @@
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-size_t N = NUMBER_OF_STEPS;
+int N = NUMBER_OF_STEPS;
 double dt = DT;
 const double Lf = LF;
 const double v_ref = V_REF;
@@ -39,7 +39,7 @@ class FG_eval {
     for (int t = 0; t < N; t++) {
       fg[0] += CppAD::pow(vars[cte_start + t], 2);
       fg[0] += CppAD::pow(vars[epsi_start + t], 2);
-      fg[0] += CppAD::pow(vars[v_start + t] - ref_v, 2);
+      fg[0] += CppAD::pow(vars[v_start + t] - v_ref, 2);
     }
 
     // Minimize the use of actuators.
@@ -91,7 +91,7 @@ class FG_eval {
       for (int i = 1; i < coeffs.size(); i++) {
       psides0 += i*coeffs[i] * CppAD::pow(x0, i-1); // f'(x0)
       }
-      AD<double> psides0 = CppAD::atan(coeffs[1]);
+      psides0 = CppAD::atan(coeffs[1]);
 
       // Recall the equations for the model:
       // x_[t] = x[t-1] + v[t-1] * cos(psi[t-1]) * dt
@@ -118,7 +118,6 @@ MPC::~MPC() {}
 
 vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   bool ok = true;
-  size_t i;
   typedef CPPAD_TESTVECTOR(double) Dvector;
 
   double x = state[0];
@@ -133,9 +132,9 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // element vector and there are 10 timesteps. The number of variables is:
   //
   // 4 * 10 + 2 * 9
-  size_t n_vars = 6 * N + 2 * (N - 1);
+  int n_vars = 6 * N + 2 * (N - 1);
   // TODO: Set the number of constraints
-  size_t n_constraints = 6 * N;
+  int n_constraints = 6 * N;
 
   // Initial value of the independent variables.
   // SHOULD BE 0 besides initial state.
@@ -221,7 +220,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   //
   // {...} is shorthand for creating a vector, so auto x1 = {1.0,2.0}
   // creates a 2 element double vector.
-  std::vector<int> actuation(2);
+  std::vector<int> actuation_values(2);
   actuation_values << solution.x[delta_start],  solution.x[a_start];
   return actuation_values;
 }
