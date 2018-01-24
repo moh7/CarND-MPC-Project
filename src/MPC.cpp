@@ -220,7 +220,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   //
   // {...} is shorthand for creating a vector, so auto x1 = {1.0,2.0}
   // creates a 2 element double vector.
-  std::vector<int> actuation_values(2);
+  std::vector<double> actuation_values(2);
   actuation_values[0] = solution.x[delta_start];
   actuation_values[1] = solution.x[a_start];
   return actuation_values;
