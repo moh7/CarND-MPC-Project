@@ -89,26 +89,24 @@ int main() {
           double px = j[1]["x"];
           double py = j[1]["y"];
           double psi = j[1]["psi"];
-          double v = j[1]["speed"];
+          double v_raw = j[1]["speed"];
+		  double v = v_raw * 0.447;// mph to m/s
 
           /*
           * TODO: Calculate steering angle and throttle using MPC.
           * Both are in between [-1, 1].
           */
 
-
           // Convert to the vehicle coordinate system
-		  int N = NUMBER_OF_STEPS;
+		  int N = ptsx.size();
           Eigen::VectorXd x_vehicle(N);
           Eigen::VectorXd y_vehicle(N);
-          for(unsigned int i = 0; i < ptsx.size(); i++) {
+          for(int i = 0; i < N; i++) {
             const double dx = ptsx[i] - px;
             const double dy = ptsy[i] - py;
             x_vehicle[i] = dx * cos(-psi) - dy * sin(-psi);
             y_vehicle[i] = dy * cos(-psi) + dx * sin(-psi);
           }
-
-
 
           double steer_value;
           double throttle_value;
