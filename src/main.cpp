@@ -142,7 +142,7 @@ int main() {
           //Display the waypoints/reference line
           vector<double> next_x_vals;
           vector<double> next_y_vals;
-		  for(int i = 0; i<ptsx.size();i++){
+		  for(int i = 0; i < N; i++){
             next_x_vals.push_back(x_vehicle[i]);
             next_y_vals.push_back(y_vehicle[i]);
           }
