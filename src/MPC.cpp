@@ -91,7 +91,7 @@ class FG_eval {
       for (int i = 1; i < coeffs.size(); i++) {
       psides0 += i*coeffs[i] * CppAD::pow(x0, i-1); // f'(x0)
       }
-      psides0 = CppAD::atan(coeffs[1]);
+      psides0 = CppAD::atan(psides0);
 
       // Recall the equations for the model:
       // x_[t] = x[t-1] + v[t-1] * cos(psi[t-1]) * dt
@@ -146,6 +146,14 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   Dvector vars_lowerbound(n_vars);
   Dvector vars_upperbound(n_vars);
   // TODO: Set lower and upper limits for variables.
+  
+  // Set lower and upper limits for variables.
+
+  for (int i = 0; i < delta_start; i++) {
+
+    vars_lowerbound[i] = -1000.0;
+    vars_upperbound[i] = 1000.0;
+  }
 
   // set limits for steering angle values: [-25 25] degrees.
   for (int i = delta_start; i < a_start; i++) {
@@ -214,6 +222,13 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // Cost
   auto cost = solution.obj_value;
   //std::cout << "Cost " << cost << std::endl;
+  
+  this->mpc_x = {};
+  this->mpc_y = {};
+  for (int i = 0; i < N; i++) {
+    this->mpc_x.push_back(solution.x[x_start + i]);
+    this->mpc_y.push_back(solution.x[y_start + i]);
+  }
 
   // TODO: Return the first actuator values. The variables can be accessed with
   // `solution.x[i]`.
