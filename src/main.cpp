@@ -98,6 +98,7 @@ int main() {
 
 
           // Convert to the vehicle coordinate system
+		  int N = NUMBER_OF_STEPS;
           Eigen::VectorXd x_vehicle(N);
           Eigen::VectorXd y_vehicle(N);
           for(unsigned int i = 0; i < ptsx.size(); i++) {
@@ -117,11 +118,11 @@ int main() {
           double epsi = psi - atan(coeffs[1]);
 
           Eigen::VectorXd state(6);
-          state <<px, py, psi, v, cte, epsi;
+          state << px, py, psi, v, cte, epsi;
 
-          Eigen::VectorXd actuation_vals = mpc.Solve(state, coeffs);
+          std::vector<double> actuation_vals = mpc.Solve(state, coeffs);
 
-          steer_value = actuation_vals[0]/deg2rad(25); // normalize to [-1, 1] range.
+          steer_value = actuation_vals[0] / deg2rad(25); // normalize to [-1, 1] range.
           throttle_value = actuation_vals[1];
 
           json msgJson;
