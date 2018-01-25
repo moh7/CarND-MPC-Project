@@ -44,8 +44,7 @@ double polyeval(Eigen::VectorXd coeffs, double x) {
 // Fit a polynomial.
 // Adapted from
 // https://github.com/JuliaMath/Polynomials.jl/blob/master/src/Polynomials.jl#L676-L716
-Eigen::VectorXd polyfit(Eigen::VectorXd xvals, Eigen::VectorXd yvals,
-                        int order) {
+Eigen::VectorXd polyfit(Eigen::VectorXd xvals, Eigen::VectorXd yvals, int order) {
   assert(xvals.size() == yvals.size());
   assert(order >= 1 && order <= xvals.size() - 1);
   Eigen::MatrixXd A(xvals.size(), order + 1);
@@ -99,9 +98,9 @@ int main() {
 
 
           // Convert to the vehicle coordinate system
-          VectorXd x_vehicle(N);
-          VectorXd y_vehicle(N);
-          for(int i = 0; i < ptsx.size(); i++) {
+          Eigen::VectorXd x_vehicle(N);
+          Eigen::VectorXd y_vehicle(N);
+          for(unsigned int i = 0; i < ptsx.size(); i++) {
             const double dx = ptsx[i] - px;
             const double dy = ptsy[i] - py;
             x_vehicle[i] = dx * cos(-psi) - dy * sin(-psi);
@@ -113,7 +112,7 @@ int main() {
           double steer_value;
           double throttle_value;
 
-          Eigen::VectorXd coeffs = polyfit(ptsx, ptsy, 3);
+          Eigen::VectorXd coeffs = polyfit(x_vehicle, y_vehicle, 3);
           double cte = polyeval(coeffs, px) - py;
           double epsi = psi - atan(coeffs[1]);
 
