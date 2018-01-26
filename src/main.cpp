@@ -112,8 +112,10 @@ int main() {
 
          
           Eigen::VectorXd coeffs = polyfit(x_vehicle, y_vehicle, 3);
-          double cte = polyeval(coeffs, px) - py;
-          double epsi = psi - atan(coeffs[1]);
+		  const double cte = coeffs[0];
+          const double epsi = -atan(coeffs[1]); //-f'(0)
+          //double cte = polyeval(coeffs, px) - py;
+          //double epsi = psi - atan(coeffs[1]);
 
 
           // Kinematic model is used to predict vehicle state at the actual
