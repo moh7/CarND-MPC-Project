@@ -127,13 +127,13 @@ int main() {
           const double v_act = v + throttle * dt;
           const double cte_act = cte + v * sin(epsi) * dt;
           const double epsi_act = epsi + psi_act; 
-          VectorXd state(6);
+          Eigen::VectorXd state(6);
           state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
 
           std::vector<double> actuation_vals = mpc.Solve(state, coeffs);
 
-          steer_value = actuation_vals[0] / deg2rad(25); // normalize to [-1, 1] range.
-          throttle_value = actuation_vals[1];
+          double steer_value = actuation_vals[0] / deg2rad(25); // normalize to [-1, 1] range.
+          double throttle_value = actuation_vals[1];
 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
