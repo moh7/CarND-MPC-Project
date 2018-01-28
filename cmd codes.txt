@@ -1,5 +1,5 @@
 git add .
-git commit -m "Some bugs fixed."
+git commit -m "adjusted weights."
 git push -u origin master
 
 
