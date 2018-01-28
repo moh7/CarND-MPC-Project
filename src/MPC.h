@@ -35,7 +35,7 @@
 #define W_CTE 2
 #define W_EPSI 10
 #define W_V 1
-#define W_DELTA 10
+#define W_DELTA 1000
 #define W_A 1
 #define W_DDELTA 0.5
 #define W_DA 0.5
