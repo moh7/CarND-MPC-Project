@@ -37,7 +37,7 @@
 #define W_V 1
 #define W_DELTA 3000
 #define W_A 1
-#define W_DDELTA 500
+#define W_DDELTA 2000
 #define W_DA 0.5
 
 using namespace std;
