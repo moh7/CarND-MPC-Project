@@ -113,8 +113,7 @@ int main() {
 
          
           Eigen::VectorXd coeffs = polyfit(x_vehicle, y_vehicle, 3);
-		  //const double cte = coeffs[0];
-          //const double epsi = -atan(coeffs[1]); //-f'(0)
+		  
 		  double target_psi = 0;
           double target_x = 0;
           double target_y = 0;
@@ -127,15 +126,14 @@ int main() {
 		  const double dt = DT;
           const double Lf = LF;
 		  
-          const double px_act = v * dt;
-          const double py_act = 0;
-          const double psi_act = - v * steering_angle * dt / Lf;
+          const double px_act = target_x + v * dt;
+          const double py_act = target_y;
+          const double psi_act = target_psi - v * steering_angle * dt / Lf;
           const double v_act = v + throttle * dt;
           const double cte_act = cte + v * sin(epsi) * dt;
           const double epsi_act = epsi + psi_act; 
           Eigen::VectorXd state(6);
           state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
-		  //state << target_x, target_y, target_psi, v, cte, epsi;
 
           std::vector<double> actuation_vals = mpc.Solve(state, coeffs);
 
