@@ -32,8 +32,8 @@
 #define W_DDELTA 0.01
 #define W_DA 0.00001
 */
-#define W_CTE 10
-#define W_EPSI 1
+#define W_CTE 5
+#define W_EPSI 10
 #define W_V 1
 #define W_DELTA 1
 #define W_A 1
