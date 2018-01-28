@@ -1,0 +1,6 @@
+cd ..
+cd CarND-MPC-Project
+git pull origin master
+cd build
+cmake .. & make
+./mpc

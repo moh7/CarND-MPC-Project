@@ -1,17 +1,7 @@
-In Windows:
-
 git add .
 git commit -m "Some bugs fixed."
 git push -u origin master
 
 
 
-In linux:
 
-
-cd ..
-cd CarND-MPC-Project
-git pull origin master
-cd build
-cmake .. & make
-./mpc

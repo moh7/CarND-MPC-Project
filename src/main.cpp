@@ -134,8 +134,8 @@ int main() {
           const double cte_act = cte + v * sin(epsi) * dt;
           const double epsi_act = epsi + psi_act; 
           Eigen::VectorXd state(6);
-          //state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
-		  state << target_x, target_y, target_psi, v, cte, epsi;
+          state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
+		  //state << target_x, target_y, target_psi, v, cte, epsi;
 
           std::vector<double> actuation_vals = mpc.Solve(state, coeffs);
 
