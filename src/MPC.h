@@ -32,12 +32,12 @@
 #define W_DDELTA 0.01
 #define W_DA 0.00001
 */
-#define W_CTE 5
-#define W_EPSI 10
-#define W_V 1
-#define W_DELTA 1
+#define W_CTE 4000
+#define W_EPSI 8000
+#define W_V 3
+#define W_DELTA 200
 #define W_A 1
-#define W_DDELTA 1
+#define W_DDELTA 50
 #define W_DA 1
 
 using namespace std;
