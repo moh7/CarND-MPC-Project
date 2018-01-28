@@ -4,7 +4,7 @@
 #include <vector>
 #include "Eigen-3.3/Eigen/Core"
 
-#define NUMBER_OF_STEPS 10
+#define NUMBER_OF_STEPS 8
 #define DT 0.1
 
 // This value assumes the model presented in the classroom is used.
@@ -35,7 +35,7 @@
 #define W_CTE 2
 #define W_EPSI 1
 #define W_V 1
-#define W_DELTA 1000
+#define W_DELTA 3000
 #define W_A 1
 #define W_DDELTA 0.5
 #define W_DA 0.5
