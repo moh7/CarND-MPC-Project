@@ -20,7 +20,7 @@
 #define LF 2.67
 
 // reference speed
-#define V_REF 50
+#define V_REF 100
 
 // Set weights parameters for the cost function
 /*
@@ -32,13 +32,13 @@
 #define W_DDELTA 0.01
 #define W_DA 0.00001
 */
-#define W_CTE 4000
-#define W_EPSI 8000
-#define W_V 3
-#define W_DELTA 5000
+#define W_CTE 2
+#define W_EPSI 10
+#define W_V 1
+#define W_DELTA 10
 #define W_A 1
-#define W_DDELTA 50
-#define W_DA 1
+#define W_DDELTA 0.5
+#define W_DA 0.5
 
 using namespace std;
 
