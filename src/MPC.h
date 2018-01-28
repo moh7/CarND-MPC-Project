@@ -23,8 +23,8 @@
 #define V_REF 90
 
 // weights for the cost function
-#define W_CTE 10
-#define W_EPSI 2
+#define W_CTE 2
+#define W_EPSI 1
 #define W_V 1
 #define W_DELTA 3000
 #define W_A 1
