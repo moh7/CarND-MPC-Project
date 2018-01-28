@@ -89,8 +89,9 @@ int main() {
           double px = j[1]["x"];
           double py = j[1]["y"];
           double psi = j[1]["psi"];
-          double v_raw = j[1]["speed"];
-		  double v = v_raw * 0.447;// mph to m/s
+          double v = j[1]["speed"];
+          //double v_raw = j[1]["speed"];
+		  //double v = v_raw * 0.447;// mph to m/s
 		  double steering_angle = j[1]["steering_angle"];
           double throttle = j[1]["throttle"];
 
@@ -112,10 +113,13 @@ int main() {
 
          
           Eigen::VectorXd coeffs = polyfit(x_vehicle, y_vehicle, 3);
-		  const double cte = coeffs[0];
-          const double epsi = -atan(coeffs[1]); //-f'(0)
-          //double cte = polyeval(coeffs, px) - py;
-          //double epsi = psi - atan(coeffs[1]);
+		  //const double cte = coeffs[0];
+          //const double epsi = -atan(coeffs[1]); //-f'(0)
+		  double target_psi = 0;
+          double target_x = 0;
+          double target_y = 0;
+          double cte = polyeval(coeffs, target_x) - target_y;
+          double epsi = target_psi - atan(coeffs[1] + 2 * coeffs[2] * target_x + 3 * coeffs[3] * target_x * target_x);
 
 
           // Kinematic model is used to predict vehicle state at the actual
@@ -130,7 +134,8 @@ int main() {
           const double cte_act = cte + v * sin(epsi) * dt;
           const double epsi_act = epsi + psi_act; 
           Eigen::VectorXd state(6);
-          state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
+          //state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
+		  state << target_x, target_y, target_psi, v, cte, epsi;
 
           std::vector<double> actuation_vals = mpc.Solve(state, coeffs);
 
