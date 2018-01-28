@@ -11,14 +11,14 @@ double dt = DT;
 const double Lf = LF;
 const double v_ref = V_REF;
 
-const int x_start     = 0 * N;
-const int y_start     = 1 * N;
-const int psi_start   = 2 * N;
-const int v_start     = 3 * N;
-const int cte_start   = 4 * N;
-const int epsi_start  = 5 * N;
-const int delta_start = 6 * N;
-const int a_start = 6 * N - 1;
+int x_start = 0;
+int y_start = x_start + N;
+int psi_start = y_start + N;
+int v_start = psi_start + N;
+int cte_start = v_start + N;
+int epsi_start = cte_start + N;
+int delta_start = epsi_start + N;
+int a_start = delta_start + N - 1;
 
 class FG_eval {
  public:
