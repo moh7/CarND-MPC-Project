@@ -35,7 +35,7 @@
 #define W_CTE 4000
 #define W_EPSI 8000
 #define W_V 3
-#define W_DELTA 200
+#define W_DELTA 5000
 #define W_A 1
 #define W_DDELTA 50
 #define W_DA 1
