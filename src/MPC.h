@@ -19,11 +19,10 @@
 // This is the length from front to CoG that has a similar radius.
 #define LF 2.67
 
-// reference speed
+// reference speed (mph)
 #define V_REF 100
 
-// Set weights parameters for the cost function
-
+// weights for the cost function
 #define W_CTE 2
 #define W_EPSI 1
 #define W_V 1

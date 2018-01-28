@@ -6,8 +6,8 @@
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-int N = NUMBER_OF_STEPS;
-double dt = DT;
+const int N = NUMBER_OF_STEPS;
+const double dt = DT;
 const double Lf = LF;
 const double v_ref = V_REF;
 
@@ -145,10 +145,9 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
 
   Dvector vars_lowerbound(n_vars);
   Dvector vars_upperbound(n_vars);
+  
   // TODO: Set lower and upper limits for variables.
   
-  // Set lower and upper limits for variables.
-
   for (int i = 0; i < delta_start; i++) {
 
     vars_lowerbound[i] = -1000.0;
