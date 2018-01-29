@@ -90,7 +90,7 @@ int main() {
           double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
-		  double steering_angle = j[1]["steering_angle"];
+		      double steering_angle = j[1]["steering_angle"];
           double throttle = j[1]["throttle"];
 
           /*
@@ -98,38 +98,40 @@ int main() {
           * Both are in between [-1, 1].
           */
 
-          // Convert to the vehicle coordinate system
-		  int N = ptsx.size();
+          // Convert waypoints to the car's coordinate system
+		      int N = ptsx.size();
           Eigen::VectorXd x_vehicle(N);
           Eigen::VectorXd y_vehicle(N);
           for(int i = 0; i < N; i++) {
-            const double dx = ptsx[i] - px;
-            const double dy = ptsy[i] - py;
-            x_vehicle[i] = dx * cos(-psi) - dy * sin(-psi);
-            y_vehicle[i] = dy * cos(-psi) + dx * sin(-psi);
+            double dx = ptsx[i] - px;
+            double dy = ptsy[i] - py;
+            ptsx_c[i] = dx * cos(-psi) - dy * sin(-psi);
+            ptsy_c[i] = dy * cos(-psi) + dx * sin(-psi);
           }
 
-         
-          Eigen::VectorXd coeffs = polyfit(x_vehicle, y_vehicle, 3);
-		  
-		  double target_psi = 0;
-          double target_x = 0;
-          double target_y = 0;
-          double cte = polyeval(coeffs, target_x) - target_y;
-          double epsi = target_psi - atan(coeffs[1] + 2 * coeffs[2] * target_x + 3 * coeffs[3] * target_x * target_x);
+          // Fit a polynomial to the waypoints
+          Eigen::VectorXd coeffs = polyfit(ptsx_c, ptsy_c, 3);
+
+		      double psi_c = 0;  // psi in car's coordinate system
+          double px_c = 0;   // px in car's coordinate system
+          double py_c = 0;   // py in car's coordinate system
+
+          double cte = polyeval(coeffs, px_c) - px_c;
+          double epsi = psi_c - atan(coeffs[1] + 2 * coeffs[2] * px_c + 3 * coeffs[3] * px_c * px_c);
 
 
-          // Kinematic model is used to predict vehicle state at the actual
-          // moment of control (current time + delay dt)
-		  const double dt = DT;
+          // The model is used to predict the vehicle's state at the actual
+          // moment of control (current time + delay)
+		      const double dt = 0.1;
           const double Lf = LF;
-		  
-          const double px_act = target_x + v * dt;
-          const double py_act = target_y;
-          const double psi_act = target_psi - v * steering_angle * dt / Lf;
-          const double v_act = v + throttle * dt;
-          const double cte_act = cte + v * sin(epsi) * dt;
-          const double epsi_act = epsi + psi_act; 
+
+          double px_act = px_c + v * dt;
+          double py_act = py_c;
+          double psi_act = psi_c - v * steering_angle * dt / Lf;
+          double v_act = v + throttle * dt;
+          double cte_act = cte + v * sin(epsi) * dt;
+          double epsi_act = epsi + psi_act;
+
           Eigen::VectorXd state(6);
           state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
 
