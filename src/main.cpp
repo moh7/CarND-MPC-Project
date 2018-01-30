@@ -112,7 +112,7 @@ int main() {
           // Fit a polynomial to the waypoints
           Eigen::VectorXd coeffs = polyfit(ptsx_c, ptsy_c, 3);
 
-		      double psi_c = 0;  // psi in car's coordinate system
+		  double psi_c = 0;  // psi in car's coordinate system
           double px_c = 0;   // px in car's coordinate system
           double py_c = 0;   // py in car's coordinate system
 
@@ -122,7 +122,7 @@ int main() {
 
           // The model is used to predict the vehicle's state at the actual
           // moment of control (current time + delay)
-		      const double dt = 0.1;
+		  const double dt = 0.1;
           const double Lf = LF;
 
           double px_act = px_c + v * dt;

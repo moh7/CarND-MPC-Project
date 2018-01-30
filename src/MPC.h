@@ -4,7 +4,7 @@
 #include <vector>
 #include "Eigen-3.3/Eigen/Core"
 
-#define NUMBER_OF_STEPS 8
+#define NUMBER_OF_STEPS 10
 #define DT 0.1
 
 // This value assumes the model presented in the classroom is used.
@@ -20,7 +20,7 @@
 #define LF 2.67
 
 // reference speed (mph)
-#define V_REF 80
+#define V_REF 90
 
 // weights for the cost function
 #define W_CTE 2
