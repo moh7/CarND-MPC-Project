@@ -100,8 +100,8 @@ int main() {
 
           // Convert waypoints to the car's coordinate system
 		      int N = ptsx.size();
-          Eigen::VectorXd x_vehicle(N);
-          Eigen::VectorXd y_vehicle(N);
+          Eigen::VectorXd ptsx_c(N);
+          Eigen::VectorXd ptsy_c(N);
           for(int i = 0; i < N; i++) {
             double dx = ptsx[i] - px;
             double dy = ptsy[i] - py;
