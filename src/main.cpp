@@ -160,8 +160,8 @@ int main() {
           vector<double> next_x_vals;
           vector<double> next_y_vals;
 		  for(int i = 0; i < N; i++){
-            next_x_vals.push_back(x_vehicle[i]);
-            next_y_vals.push_back(y_vehicle[i]);
+            next_x_vals.push_back(ptsx_c[i]);
+            next_y_vals.push_back(ptsy_c[i]);
           }
 
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
