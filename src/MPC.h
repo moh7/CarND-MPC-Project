@@ -20,12 +20,12 @@
 #define LF 2.67
 
 // reference speed (mph)
-#define V_REF 90
+#define V_REF 80
 
 // weights for the cost function
 #define W_CTE 2
 #define W_EPSI 1
-#define W_V 0.1
+#define W_V 1
 #define W_DELTA 3000
 #define W_A 1
 #define W_DDELTA 2000
